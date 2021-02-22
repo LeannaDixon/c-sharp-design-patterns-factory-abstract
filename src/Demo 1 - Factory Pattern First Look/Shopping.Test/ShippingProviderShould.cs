@@ -2,6 +2,7 @@ using AutoFixture;
 using Factory_Pattern_First_Look.Business;
 using Factory_Pattern_First_Look.Business.Models.Commerce;
 using Factory_Pattern_First_Look.Business.Models.Shipping;
+using Factory_Pattern_First_Look.Business.Models.Shipping.Factories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -44,7 +45,7 @@ namespace Shopping.Test
             //    .With(x=>x.Recipient, recipient)
             //    .Create();
 
-            var shoppingCart = new ShoppingCart(newOrder);
+            var shoppingCart = new ShoppingCart(newOrder, new StandardShippingProviderFactory());
             var shippingLabel = shoppingCart.Finalize();
 
             shippingLabel.Should().Contain(expectedCountryCode);

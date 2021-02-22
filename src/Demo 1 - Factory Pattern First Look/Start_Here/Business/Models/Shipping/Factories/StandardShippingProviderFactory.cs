@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Factory_Pattern_First_Look.Business.Models.Shipping
+namespace Factory_Pattern_First_Look.Business.Models.Shipping.Factories
 {
-    public static class ShippingProviderFactory
+    public class StandardShippingProviderFactory : ShippingProviderFactory
     {
-        public static ShippingProvider CreateShippingProvider(string country)
+        protected override ShippingProvider CreateShippingProvider(string country)
         {
-            #region Create Shipping Provider
             ShippingProvider shippingProvider;
+
+            #region Create Shipping Provider
 
             if (country == "Australia")
             {
@@ -34,7 +35,7 @@ namespace Factory_Pattern_First_Look.Business.Models.Shipping
                     ProviderRequiresReturnOnDamange = false
                 };
 
-                return shippingProvider = new AustraliaPostShippingProvider("CLIENT_ID",
+                shippingProvider = new AustraliaPostShippingProvider("CLIENT_ID",
                     "SECRET",
                     shippingCostCalculator,
                     customsHandlingOptions,
@@ -64,7 +65,7 @@ namespace Factory_Pattern_First_Look.Business.Models.Shipping
                     ProviderRequiresReturnOnDamange = false
                 };
 
-                return shippingProvider = new SwedishPostalServiceShippingProvider("API_KEY",
+                shippingProvider = new SwedishPostalServiceShippingProvider("API_KEY",
                     shippingCostCalculator,
                     customsHandlingOptions,
                     insuranceOptions);
@@ -75,6 +76,9 @@ namespace Factory_Pattern_First_Look.Business.Models.Shipping
                 throw new NotSupportedException("No shipping provider found for origin country");
             }
             #endregion
+
+            return shippingProvider;
         }
+
     }
 }

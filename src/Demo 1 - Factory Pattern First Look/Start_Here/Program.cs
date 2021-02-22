@@ -1,11 +1,13 @@
 ﻿using Factory_Pattern_First_Look.Business;
 using Factory_Pattern_First_Look.Business.Models.Commerce;
+using Factory_Pattern_First_Look.Business.Models.Shipping.Factories;
 using System;
 
 namespace Factory_Pattern_First_Look
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             #region Create Order
@@ -39,7 +41,7 @@ namespace Factory_Pattern_First_Look
             order.LineItems.Add(new Item("CONSULTING", "Building a website", 100m), 1);
             #endregion
 
-            var cart = new ShoppingCart(order);
+            var cart = new ShoppingCart(order, new StandardShippingProviderFactory());
 
             var shippingLabel = cart.Finalize();
 
