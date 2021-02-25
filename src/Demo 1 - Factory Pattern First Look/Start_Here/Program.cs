@@ -42,6 +42,8 @@ namespace Factory_Pattern_First_Look
             #endregion
 
             IPurchaseProviderFactory purchaseProviderFactory;
+
+            #region Used Reflection to convert this code into a factory provider
             if (order.Sender.Country == "Australia")
             {
                 purchaseProviderFactory = new AustrailiaPurchaseProviderFactory();
@@ -54,6 +56,7 @@ namespace Factory_Pattern_First_Look
             {
                 throw new Exception("Country not supported");
             }
+            #endregion
             var cart = new ShoppingCart(order, purchaseProviderFactory);
 
             var shippingLabel = cart.Finalize();
